@@ -16,5 +16,10 @@ namespace MyBlog.Entities.Concrete
         public string Description { get; set; }
 
         public DateTime PostedTime { get; set; }
+
+        public int? ParentCommentId { get; set; }
+        public Comment  ParentComment{ get; set; }
+
+        public List<Comment> SubComments { get; set; }
     }
 }

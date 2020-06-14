@@ -14,5 +14,7 @@ namespace MyBlog.Entities.Concrete
         public string Name { get; set; }
 
         public string SurName { get; set; }
+
+        List<Blog> Blogs { get; set; }
     }
 }
