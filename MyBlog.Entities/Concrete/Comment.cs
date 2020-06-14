@@ -21,5 +21,9 @@ namespace MyBlog.Entities.Concrete
         public Comment  ParentComment{ get; set; }
 
         public List<Comment> SubComments { get; set; }
+
+        public int BlogId { get; set; }
+
+        public Blog Blog { get; set; }
     }
 }

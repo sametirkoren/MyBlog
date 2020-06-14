@@ -14,7 +14,7 @@ namespace MyBlog.Entities.Concrete
 
         public string Description { get; set; }
 
-        public DateTime PostedTime { get; set; }
+        public DateTime PostedTime { get; set; } = DateTime.Now;
 
         public string ImagePath { get; set; }
 
@@ -23,5 +23,7 @@ namespace MyBlog.Entities.Concrete
         public AppUser AppUser { get; set; }
 
         public List<CategoryBlog> CategoryBlogs { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }
