@@ -18,6 +18,10 @@ namespace MyBlog.Entities.Concrete
 
         public string ImagePath { get; set; }
 
+        public int AppUserId { get; set; }
+
+        public AppUser AppUser { get; set; }
+
         public List<CategoryBlog> CategoryBlogs { get; set; }
     }
 }
