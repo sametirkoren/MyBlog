@@ -39,7 +39,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
 
         public async Task<IActionResult> Update(int id , Blog blog)
         {
@@ -49,6 +49,13 @@ namespace MyBlog.WebApi.Controllers
             }
 
             await _blogService.UpdateAsync(blog);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _blogService.RemoveAsync(new Blog { Id=id });
             return NoContent();
         }
     }
