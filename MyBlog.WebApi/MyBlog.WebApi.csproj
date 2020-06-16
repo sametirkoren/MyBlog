@@ -14,5 +14,9 @@
     <ProjectReference Include="..\MyBlog.Dto\MyBlog.Dto.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 
 </Project>
