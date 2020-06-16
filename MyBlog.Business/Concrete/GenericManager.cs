@@ -11,7 +11,7 @@ namespace MyBlog.Business.Concrete
 {
     public class GenericManager<TEntity> : IGenericService<TEntity> where TEntity : class, ITable, new()
     {
-        IGenericDal<TEntity> _genericDal;
+        private readonly IGenericDal<TEntity> _genericDal;
         public GenericManager(IGenericDal<TEntity> genericDal)
         {
             _genericDal = genericDal;
