@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
+using MyBlog.Entities.Concrete;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -28,6 +29,13 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await _blogService.FindById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Blog blog)
+        {
+            await _blogService.AddAsync(blog);
+            return Created("", blog);
         }
     }
 }
