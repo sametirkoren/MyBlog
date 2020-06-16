@@ -37,5 +37,19 @@ namespace MyBlog.WebApi.Controllers
             await _blogService.AddAsync(blog);
             return Created("", blog);
         }
+
+
+        [HttpPut]
+
+        public async Task<IActionResult> Update(int id , Blog blog)
+        {
+            if(id != blog.Id)
+            {
+                return BadRequest("geçersiz id");
+            }
+
+            await _blogService.UpdateAsync(blog);
+            return NoContent();
+        }
     }
 }
