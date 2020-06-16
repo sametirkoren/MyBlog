@@ -22,5 +22,12 @@ namespace MyBlog.WebApi.Controllers
         {
             return Ok(await _blogService.GetAllSortedByPostedTimeAsync());
         }
+
+        [HttpGet("{id}")]
+
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await _blogService.FindById(id));
+        }
     }
 }
