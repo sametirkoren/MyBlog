@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyBlog.WebApi.Models
 {
-    public class BlogAddModel
+    public class BlogUpdateModel
     {
+        public int Id { get; set; }
         public int AppUserId { get; set; }
         public string Title { get; set; }
 
