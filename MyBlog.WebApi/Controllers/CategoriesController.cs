@@ -28,5 +28,11 @@ namespace MyBlog.WebApi.Controllers
         {
             return Ok(_mapper.Map<List<CategoryListDto>>(await _categoryService.GetAllSortedByIdAsync()));
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(_mapper.Map<CategoryListDto>(await _categoryService.FindByIdAsync(id)));
+        }
     }
 }
