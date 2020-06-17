@@ -41,7 +41,7 @@ namespace MyBlog.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm]BlogAddModel blogAddModel)
         {
-            var uploadModel = await UploadFile(blogAddModel.Image, "image/jpeg");
+            var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
 
             if (uploadModel.UploadState == UploadState.Succcess)
             {
@@ -74,17 +74,28 @@ namespace MyBlog.WebApi.Controllers
                 return BadRequest("geçersiz id");
             }
 
-            var uploadModel = await UploadFile(blogUpdateModel.Image, "image/jpeg");
+            var uploadModel = await UploadFileAsync(blogUpdateModel.Image, "image/jpeg");
 
             if (uploadModel.UploadState == UploadState.Succcess)
             {
-                blogUpdateModel.ImagePath = uploadModel.NewName;
-                await _blogService.UpdateAsync(_mapper.Map<Blog>(blogUpdateModel));
+                var updatedBlog = await _blogService.FindById(blogUpdateModel.Id);
+                
+                updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
+                updatedBlog.Title = blogUpdateModel.Title;
+                updatedBlog.Description = blogUpdateModel.Description;
+
+                updatedBlog.ImagePath = uploadModel.NewName;
+                await _blogService.UpdateAsync(updatedBlog);
                 return NoContent();
             }
             else if (uploadModel.UploadState == UploadState.NotExist)
             {
-                await _blogService.UpdateAsync(_mapper.Map<Blog>(blogUpdateModel));
+                var updatedBlog = await _blogService.FindById(blogUpdateModel.Id);
+                updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
+                updatedBlog.Title = blogUpdateModel.Title;
+                updatedBlog.Description = blogUpdateModel.Description;
+                
+                await _blogService.UpdateAsync(updatedBlog);
                 return NoContent();
             }
 
