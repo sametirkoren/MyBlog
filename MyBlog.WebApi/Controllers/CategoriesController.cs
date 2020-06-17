@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.CategoryDtos;
+using MyBlog.Entities.Concrete;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -33,6 +34,15 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(_mapper.Map<CategoryListDto>(await _categoryService.FindByIdAsync(id)));
+        }
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> Create(CategoryAddDto categoryAddDto)
+        {
+            await _categoryService.AddAsync(_mapper.Map<Category>(categoryAddDto));
+            return Created("", categoryAddDto);
         }
     }
 }
