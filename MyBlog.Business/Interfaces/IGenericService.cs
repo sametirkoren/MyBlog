@@ -11,7 +11,7 @@ namespace MyBlog.Business.Interfaces
     {
         Task<List<TEntity>> GetAllAsync();
 
-        Task<TEntity> FindById(int id);
+        Task<TEntity> FindByIdAsync(int id);
 
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter);
         Task AddAsync(TEntity entity);

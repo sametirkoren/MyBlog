@@ -35,7 +35,7 @@ namespace MyBlog.WebApi.Controllers
 
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(_mapper.Map<BlogListDto>(await _blogService.FindById(id)));
+            return Ok(_mapper.Map<BlogListDto>(await _blogService.FindByIdAsync(id)));
         }
 
         [HttpPost]
@@ -78,7 +78,7 @@ namespace MyBlog.WebApi.Controllers
 
             if (uploadModel.UploadState == UploadState.Succcess)
             {
-                var updatedBlog = await _blogService.FindById(blogUpdateModel.Id);
+                var updatedBlog = await _blogService.FindByIdAsync(blogUpdateModel.Id);
                 
                 updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
                 updatedBlog.Title = blogUpdateModel.Title;
@@ -90,7 +90,7 @@ namespace MyBlog.WebApi.Controllers
             }
             else if (uploadModel.UploadState == UploadState.NotExist)
             {
-                var updatedBlog = await _blogService.FindById(blogUpdateModel.Id);
+                var updatedBlog = await _blogService.FindByIdAsync(blogUpdateModel.Id);
                 updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
                 updatedBlog.Title = blogUpdateModel.Title;
                 updatedBlog.Description = blogUpdateModel.Description;
