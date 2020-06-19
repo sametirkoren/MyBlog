@@ -59,6 +59,14 @@ namespace MyBlog.WebApi.Controllers
             return NoContent();
         } 
 
+        [HttpDelete("{id}")]
+
+        public async Task<IActionResult> Delete (int id)
+        {
+            await _categoryService.RemoveAsync(new Category { Id = id });
+            return NoContent();
+        }
+
 
     }
 }
