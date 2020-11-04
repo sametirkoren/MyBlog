@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
@@ -39,6 +40,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromForm]BlogAddModel blogAddModel)
         {
             var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
@@ -66,7 +68,7 @@ namespace MyBlog.WebApi.Controllers
 
 
         [HttpPut("{id}")]
-
+        [Authorize]
         public async Task<IActionResult> Update(int id , [FromForm]BlogUpdateModel blogUpdateModel)
         {
             if(id != blogUpdateModel.Id)
@@ -108,6 +110,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _blogService.RemoveAsync(new Blog { Id=id });

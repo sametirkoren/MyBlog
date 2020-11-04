@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Business.Concrete;
 using MyBlog.Business.Interfaces;
+using MyBlog.Business.Tools.JWTool;
 using MyBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MyBlog.DataAccess.Interfaces;
 using System;
@@ -18,6 +19,14 @@ namespace MyBlog.Business.Containers.MicrosoftIoC
 
             services.AddScoped<IBlogService, BlogManager>();
             services.AddScoped<IBlogDal, EfBlogRepository>();
+
+
+            services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<ICategoryDal, EfCategoryRepository>();
+
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IAppUserDal, EfAppUserRepository>();
+            services.AddScoped<IJwtService, JwtManager>();
         }
     }
 }
