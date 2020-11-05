@@ -36,6 +36,8 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpGet("{id}")]
         [ValidModel]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+
 
         public async Task<IActionResult> GetById(int id)
         {
@@ -74,6 +76,8 @@ namespace MyBlog.WebApi.Controllers
         [HttpPut("{id}")]
         [Authorize]
         [ValidModel]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+
         public async Task<IActionResult> Update(int id , [FromForm]BlogUpdateModel blogUpdateModel)
         {
             if(id != blogUpdateModel.Id)
@@ -117,6 +121,8 @@ namespace MyBlog.WebApi.Controllers
         [HttpDelete("{id}")]
         [Authorize]
         [ValidModel]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+
         public async Task<IActionResult> Delete(int id)
         {
             await _blogService.RemoveAsync(new Blog { Id=id });

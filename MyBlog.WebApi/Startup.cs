@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MyBlog.Business.Containers.MicrosoftIoC;
 using MyBlog.Business.StringInfos;
+using MyBlog.WebApi.CustomFilters;
 
 namespace MyBlog.WebApi
 {
@@ -45,6 +46,8 @@ namespace MyBlog.WebApi
                     
                 };
             });
+
+            services.AddScoped(typeof(ValidId<>));
             services.AddAutoMapper(typeof(Startup));
             services.AddDependencies();
             services.AddControllers().AddNewtonsoftJson(opt=> {
