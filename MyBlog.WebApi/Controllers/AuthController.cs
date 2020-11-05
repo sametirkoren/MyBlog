@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
 using MyBlog.Business.Tools.JWTool;
 using MyBlog.Dto.DTOs.AppUserDtos;
+using MyBlog.WebApi.CustomFilters;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -24,6 +25,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         [HttpPost]
+        [ValidModel]
         public  async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {
             var user =await _appUserService.CheckUserAsync(appUserLoginDto);

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.CategoryDtos;
 using MyBlog.Entities.Concrete;
+using MyBlog.WebApi.CustomFilters;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -32,6 +33,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ValidModel]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(_mapper.Map<CategoryListDto>(await _categoryService.FindByIdAsync(id)));
@@ -48,6 +50,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Update(int id , CategoryUpdateDto categoryUpdateDto)
         {
             if (id != categoryUpdateDto.Id)
@@ -62,6 +65,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Delete (int id)
         {
             await _categoryService.RemoveAsync(new Category { Id = id });

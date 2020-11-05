@@ -11,6 +11,7 @@ using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.BlogDtos;
 using MyBlog.Dto.DTOs.CategoryBlogDtos;
 using MyBlog.Entities.Concrete;
+using MyBlog.WebApi.CustomFilters;
 using MyBlog.WebApi.Enums;
 using MyBlog.WebApi.Models;
 
@@ -34,6 +35,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ValidModel]
 
         public async Task<IActionResult> GetById(int id)
         {
@@ -42,6 +44,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Create([FromForm]BlogAddModel blogAddModel)
         {
             var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
@@ -70,6 +73,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Update(int id , [FromForm]BlogUpdateModel blogUpdateModel)
         {
             if(id != blogUpdateModel.Id)
@@ -112,6 +116,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Delete(int id)
         {
             await _blogService.RemoveAsync(new Blog { Id=id });
