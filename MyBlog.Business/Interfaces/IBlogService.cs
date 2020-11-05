@@ -1,4 +1,5 @@
-﻿using MyBlog.Entities.Concrete;
+﻿using MyBlog.Dto.DTOs.CategoryBlogDtos;
+using MyBlog.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,9 @@ namespace MyBlog.Business.Interfaces
     public interface IBlogService : IGenericService<Blog>
     {
         Task<List<Blog>> GetAllSortedByPostedTimeAsync();
+
+        Task AddToCategoryAsync(CategoryBlogDto categoryBlogDto);
+        Task RemoveFromCategoryAsync(CategoryBlogDto categoryBlogDto);
+
     }
 }
