@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
@@ -25,7 +26,7 @@ namespace MyBlog.WebApi.Controllers
         [HttpPost]
         public  async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {
-            var user =await _appUserService.CheckUser(appUserLoginDto);
+            var user =await _appUserService.CheckUserAsync(appUserLoginDto);
             if(user != null)
             {
 
@@ -34,5 +35,17 @@ namespace MyBlog.WebApi.Controllers
             return BadRequest("Kullanıcı adı veya şifre hatalı");
             
         }
+
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<IActionResult> ActiveUser()
+        {
+            var user = await _appUserService.FindByNameAsync(User.Identity.Name);
+
+            return Ok(new AppUserDto { Name = user.Name, SurName = user.SurName });
+        }
+
+        
     }
 }
