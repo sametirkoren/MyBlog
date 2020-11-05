@@ -144,5 +144,14 @@ namespace MyBlog.WebApi.Controllers
             await _blogService.RemoveFromCategoryAsync(categoryBlogDto);
             return NoContent();
         }
+
+        [HttpGet("[action]/{id}")]
+        [ServiceFilter(typeof(ValidId<Category>))]
+
+        public async Task<IActionResult> GetAllByCategoryId(int id)
+        {
+            return Ok(await _blogService.GetAllByCategoryIdAsync(id));
+
+        }
     }
 }
