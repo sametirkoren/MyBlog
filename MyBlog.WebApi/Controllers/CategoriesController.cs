@@ -69,5 +69,22 @@ namespace MyBlog.WebApi.Controllers
         }
 
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetWithBlogsCount()
+        {
+            var categories = await _categoryService.GetAllWithCategoryBlogsAsyns();
+            List<CategoryWithBlogsCountDto> listCategory = new List<CategoryWithBlogsCountDto>();
+
+            foreach (var category in categories)
+            {
+                CategoryWithBlogsCountDto dto = new CategoryWithBlogsCountDto();
+                dto.Category = category;
+                dto.BlogsCount = category.CategoryBlogs.Count;
+
+                listCategory.Add(dto);
+            }
+
+            return Ok(listCategory);
+        }
     }
 }

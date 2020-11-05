@@ -11,7 +11,8 @@ namespace MyBlog.DataAccess.Concrete.EntityFrameworkCore.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=.;database=MyBlogDb;Integrated Security = true;");
+            optionsBuilder.UseSqlServer("Data Source=45.151.250.150\\MSSQLSERVER2016;Initial Catalog=sametirk_blog;User Id=sametirk_cv;Password=!g9pQ8n5");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
