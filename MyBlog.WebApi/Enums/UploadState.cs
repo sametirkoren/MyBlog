@@ -7,7 +7,7 @@ namespace MyBlog.WebApi.Enums
 {
     public enum UploadState
     {
-        Succcess = 1 ,
+        Success = 1 ,
         Error = 2 ,
         NotExist = 3 
     }

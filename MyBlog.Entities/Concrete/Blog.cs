@@ -8,6 +8,7 @@ namespace MyBlog.Entities.Concrete
     public class Blog : ITable
 
     {
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }

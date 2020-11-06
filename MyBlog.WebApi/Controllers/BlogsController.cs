@@ -51,7 +51,7 @@ namespace MyBlog.WebApi.Controllers
         {
             var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
 
-            if (uploadModel.UploadState == UploadState.Succcess)
+            if (uploadModel.UploadState == UploadState.Success)
             {
                 blogAddModel.ImagePath = uploadModel.NewName;
                 await _blogService.AddAsync(_mapper.Map<Blog>(blogAddModel));
@@ -87,7 +87,7 @@ namespace MyBlog.WebApi.Controllers
 
             var uploadModel = await UploadFileAsync(blogUpdateModel.Image, "image/jpeg");
 
-            if (uploadModel.UploadState == UploadState.Succcess)
+            if (uploadModel.UploadState == UploadState.Success)
             {
                 var updatedBlog = await _blogService.FindByIdAsync(blogUpdateModel.Id);
                 
@@ -125,6 +125,7 @@ namespace MyBlog.WebApi.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+           
             await _blogService.RemoveAsync(new Blog { Id=id });
             return NoContent();
         }

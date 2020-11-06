@@ -26,7 +26,7 @@ namespace MyBlog.Business.Tools.JWTool
         private List<Claim> SetClaims(AppUser appUser)
         {
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, appUser.Name));
+            claims.Add(new Claim(ClaimTypes.Name, appUser.UserName));
             claims.Add(new Claim(ClaimTypes.NameIdentifier, appUser.Id.ToString()));
 
             return claims;

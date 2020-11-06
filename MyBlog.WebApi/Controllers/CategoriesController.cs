@@ -87,7 +87,8 @@ namespace MyBlog.WebApi.Controllers
             foreach (var category in categories)
             {
                 CategoryWithBlogsCountDto dto = new CategoryWithBlogsCountDto();
-                dto.Category = category;
+                dto.CategoryName = category.Name;
+                dto.CategoryId = category.Id;
                 dto.BlogsCount = category.CategoryBlogs.Count;
 
                 listCategory.Add(dto);

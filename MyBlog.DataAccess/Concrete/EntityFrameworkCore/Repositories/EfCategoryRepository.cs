@@ -17,5 +17,7 @@ namespace MyBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories
             using var context = new MyBlogContext();
             return await context.Categories.OrderByDescending(I=>I.Id).Include(I => I.CategoryBlogs).ToListAsync();
         }
+
+
     }
 }

@@ -34,7 +34,7 @@ namespace MyBlog.WebApi
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>
             {
-                opt.RequireHttpsMetadata = true;
+                opt.RequireHttpsMetadata = false;
                 opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     ValidIssuer = JwtInfo.Issuer,

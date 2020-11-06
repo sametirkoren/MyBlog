@@ -21,6 +21,8 @@ namespace MyBlog.Business.Concrete
             _blogDal = blogDal;
         }
 
+        
+
         public async Task<List<Blog>> GetAllSortedByPostedTimeAsync()
         {
             return await _genericDal.GetAllAsync(I => I.PostedTime);

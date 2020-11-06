@@ -24,7 +24,7 @@ namespace MyBlog.WebApi.Controllers
             _jwtService = jwtService;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         [ValidModel]
         public  async Task<IActionResult> SignIn(AppUserLoginDto appUserLoginDto)
         {
@@ -45,7 +45,7 @@ namespace MyBlog.WebApi.Controllers
         {
             var user = await _appUserService.FindByNameAsync(User.Identity.Name);
 
-            return Ok(new AppUserDto { Name = user.Name, SurName = user.SurName });
+            return Ok(new AppUserDto { Id = user.Id, Name = user.Name, SurName = user.SurName });
         }
 
         
