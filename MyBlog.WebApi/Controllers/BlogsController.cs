@@ -10,6 +10,7 @@ using MyBlog.Entities.Concrete;
 using MyBlog.WebApi.CustomFilters;
 using MyBlog.WebApi.Enums;
 using MyBlog.WebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -126,7 +127,7 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
            
-            await _blogService.RemoveAsync(new Blog { Id=id });
+            await _blogService.RemoveAsync(await _blogService.FindByIdAsync(id));
             return NoContent();
         }
 
@@ -184,6 +185,15 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> Search([FromQuery]string s)
         {
             return Ok(_mapper.Map<List<BlogListDto>>(await _blogService.SearchAsync(s)));
+        }
+
+        [HttpPost("[action]")]
+        [ValidModel]
+        public async Task<IActionResult> AddComment(CommentAddDto commentAddDto)
+        {
+            commentAddDto.PostedTime = DateTime.Now;
+            await _commentService.AddAsync(_mapper.Map<Comment>(commentAddDto));
+            return Created("", commentAddDto);
         }
     }
 }

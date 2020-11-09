@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
+using MyBlog.Business.Tools.LogTool;
 using MyBlog.Dto.DTOs.CategoryDtos;
 using MyBlog.Entities.Concrete;
 using MyBlog.WebApi.CustomFilters;
@@ -19,10 +21,12 @@ namespace MyBlog.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICategoryService _categoryService;
-        public CategoriesController(IMapper mapper , ICategoryService categoryService)
+        private readonly ICustomLogger _customLogger;
+        public CategoriesController(IMapper mapper, ICategoryService categoryService, ICustomLogger customLogger)
         {
             _mapper = mapper;
             _categoryService = categoryService;
+            _customLogger = customLogger;
         }
 
         [HttpGet]
@@ -73,7 +77,7 @@ namespace MyBlog.WebApi.Controllers
 
         public async Task<IActionResult> Delete (int id)
         {
-            await _categoryService.RemoveAsync(new Category { Id = id });
+            await _categoryService.RemoveAsync(await _categoryService.FindByIdAsync(id));
             return NoContent();
         }
 
@@ -95,6 +99,15 @@ namespace MyBlog.WebApi.Controllers
             }
 
             return Ok(listCategory);
+        }
+
+
+        [Route("/Error")]
+        public IActionResult Error()
+        {
+            var errorInfo = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            _customLogger.LogError($"\nHatanın oluştuğu yer:{errorInfo.Path}\n Hata Mesajı : {errorInfo.Error.Message} \n Stack Trace: {errorInfo.Error.StackTrace}");
+            return Problem(detail: "bir hata olustu, en kisa zamanda fixlenecek");
         }
     }
 }
