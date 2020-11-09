@@ -1,4 +1,5 @@
-﻿using MyBlog.Business.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyBlog.Business.Interfaces;
 using MyBlog.DataAccess.Interfaces;
 using MyBlog.Dto.DTOs.CategoryBlogDtos;
 using MyBlog.Entities.Concrete;
@@ -56,6 +57,16 @@ namespace MyBlog.Business.Concrete
         public async Task<List<Blog>> GetAllByCategoryIdAsync(int categoryId)
         {
             return await _blogDal.GetAllByCategoryIdAsync(categoryId);
+        }
+
+        public async Task<List<Category>> GetCategoriesAsync(int blogId)
+        {
+            return await _blogDal.GetCategoriesAsync(blogId);
+        }
+
+        public async Task<List<Blog>> GetLastFiveAsync()
+        {
+            return await _blogDal.GetLastFiveAsync();
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.BlogDtos;
 using MyBlog.Dto.DTOs.CategoryBlogDtos;
+using MyBlog.Dto.DTOs.CategoryDtos;
 using MyBlog.Entities.Concrete;
 using MyBlog.WebApi.CustomFilters;
 using MyBlog.WebApi.Enums;
@@ -153,6 +154,22 @@ namespace MyBlog.WebApi.Controllers
         {
             return Ok(await _blogService.GetAllByCategoryIdAsync(id));
 
+        }
+
+
+        [HttpGet("{id}/[action]")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+
+        public async Task<IActionResult> GetCategories(int id)
+        {
+            return Ok(_mapper.Map<List<CategoryListDto>>(await _blogService.GetCategoriesAsync(id)));
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLastFive()
+        {
+            return Ok(_mapper.Map<List<BlogListDto>>(await _blogService.GetLastFiveAsync()));
         }
     }
 }

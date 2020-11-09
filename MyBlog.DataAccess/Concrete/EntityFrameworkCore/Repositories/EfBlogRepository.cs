@@ -34,5 +34,26 @@ namespace MyBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories
                 Title = I.blog.Title
             }).ToListAsync();
         }
+
+
+        public async Task<List<Category>> GetCategoriesAsync(int blogId)
+        {
+            using var context = new MyBlogContext();
+            return  await context.Categories.Join(context.CategoryBlogs, c => c.Id, cb => cb.CategoryId, (category, categoryBlog) =>new
+            {
+                category = category,
+                categoryBlog = categoryBlog
+            }).Where(I=>I.categoryBlog.BlogId == blogId).Select(I=>new Category { 
+               Id=I.category.Id,
+               Name = I.category.Name
+            }).ToListAsync();
+                
+        }
+
+        public async Task<List<Blog>> GetLastFiveAsync()
+        {
+            using var context = new MyBlogContext();
+            return await context.Blogs.OrderByDescending(I => I.PostedTime).Take(5).ToListAsync();
+        }
     }
 }
