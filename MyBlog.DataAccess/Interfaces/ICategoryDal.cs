@@ -8,6 +8,6 @@ namespace MyBlog.DataAccess.Interfaces
 {
     public interface ICategoryDal : IGenericDal<Category>
     {
-        Task<List<Category>> GetAllWithCategoryBlogsAsyns();
+        Task<List<Category>> GetAllWithCategoryBlogsAsync();
     }
 }

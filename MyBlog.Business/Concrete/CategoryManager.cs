@@ -25,7 +25,7 @@ namespace MyBlog.Business.Concrete
 
         public async Task<List<Category>> GetAllWithCategoryBlogsAsyns()
         {
-            return await _categoryDal.GetAllWithCategoryBlogsAsyns();
+            return await _categoryDal.GetAllWithCategoryBlogsAsync();
         }
     }
 }

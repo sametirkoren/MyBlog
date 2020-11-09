@@ -11,6 +11,7 @@ using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.BlogDtos;
 using MyBlog.Dto.DTOs.CategoryBlogDtos;
 using MyBlog.Dto.DTOs.CategoryDtos;
+using MyBlog.Dto.DTOs.CommentDtos;
 using MyBlog.Entities.Concrete;
 using MyBlog.WebApi.CustomFilters;
 using MyBlog.WebApi.Enums;
@@ -24,14 +25,16 @@ namespace MyBlog.WebApi.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly IMapper _mapper;
-        public BlogsController(IBlogService blogService , IMapper mapper)
+        private readonly ICommentService _commentService;
+        public BlogsController(IBlogService blogService, IMapper mapper, ICommentService commentService)
         {
             _mapper = mapper;
             _blogService = blogService;
+            _commentService = commentService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
-        {
+         {
             return Ok( _mapper.Map<List<BlogListDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
 
@@ -170,6 +173,14 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> GetLastFive()
         {
             return Ok(_mapper.Map<List<BlogListDto>>(await _blogService.GetLastFiveAsync()));
+        }
+
+
+        [HttpGet("{id}/[action]")]
+
+        public async Task<IActionResult> GetComments([FromRoute]int id , [FromQuery]int? parentCommentId)
+        {
+            return Ok(_mapper.Map<List<CommentListDto>>(await _commentService.GetAllWithSubCommentsAsync(id ,parentCommentId)));
         }
     }
 }

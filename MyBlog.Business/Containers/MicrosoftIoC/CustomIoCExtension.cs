@@ -30,6 +30,9 @@ namespace MyBlog.Business.Containers.MicrosoftIoC
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICategoryDal, EfCategoryRepository>();
 
+            services.AddScoped<ICommentService, CommentManager>();
+            services.AddScoped<ICommentDal, CommentRepository>();
+
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<IAppUserDal, EfAppUserRepository>();
             services.AddScoped<IJwtService, JwtManager>();
