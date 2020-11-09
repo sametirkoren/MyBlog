@@ -12,5 +12,7 @@ namespace MyBlog.DataAccess.Interfaces
         Task<List<Blog>> GetAllByCategoryIdAsync(int categoryId);
 
         Task<List<Blog>> GetLastFiveAsync();
+
+
     }
 }

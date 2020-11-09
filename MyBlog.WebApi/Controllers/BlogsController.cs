@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Business.Interfaces;
 using MyBlog.Dto.DTOs.BlogDtos;
@@ -16,6 +10,8 @@ using MyBlog.Entities.Concrete;
 using MyBlog.WebApi.CustomFilters;
 using MyBlog.WebApi.Enums;
 using MyBlog.WebApi.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -181,6 +177,13 @@ namespace MyBlog.WebApi.Controllers
         public async Task<IActionResult> GetComments([FromRoute]int id , [FromQuery]int? parentCommentId)
         {
             return Ok(_mapper.Map<List<CommentListDto>>(await _commentService.GetAllWithSubCommentsAsync(id ,parentCommentId)));
+        }
+
+        [HttpGet("[action]")]
+
+        public async Task<IActionResult> Search([FromQuery]string s)
+        {
+            return Ok(_mapper.Map<List<BlogListDto>>(await _blogService.SearchAsync(s)));
         }
     }
 }

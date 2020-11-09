@@ -18,5 +18,7 @@ namespace MyBlog.Business.Interfaces
         Task<List<Category>> GetCategoriesAsync(int blogId);
         Task<List<Blog>> GetLastFiveAsync();
 
+        Task<List<Blog>> SearchAsync(string searchString);
+
     }
 }
