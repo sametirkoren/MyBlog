@@ -31,7 +31,9 @@ namespace MyBlog.WebApi.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
-         {
+        
+        
+        {
             return Ok( _mapper.Map<List<BlogListDto>>(await _blogService.GetAllSortedByPostedTimeAsync()));
         }
 
@@ -141,7 +143,7 @@ namespace MyBlog.WebApi.Controllers
 
         [HttpPost("[action]")]
 
-        public async Task<IActionResult> RemoveFromCategory(CategoryBlogDto categoryBlogDto)
+        public async Task<IActionResult> RemoveFromCategory([FromQuery]CategoryBlogDto categoryBlogDto)
         {
             await _blogService.RemoveFromCategoryAsync(categoryBlogDto);
             return NoContent();
