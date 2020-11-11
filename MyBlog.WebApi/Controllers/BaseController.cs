@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.WebApi.Enums;
@@ -12,8 +13,10 @@ namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class BaseController : ControllerBase
     {
+        [HttpGet("[action]")]
         public async Task<UploadModel> UploadFileAsync(IFormFile file, string contentType)
         {
             UploadModel uploadModel = new UploadModel();

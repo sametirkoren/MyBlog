@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class CategoriesController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -102,12 +104,6 @@ namespace MyBlog.WebApi.Controllers
         }
 
 
-        [Route("/Error")]
-        public IActionResult Error()
-        {
-            var errorInfo = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-            _customLogger.LogError($"\nHatanın oluştuğu yer:{errorInfo.Path}\n Hata Mesajı : {errorInfo.Error.Message} \n Stack Trace: {errorInfo.Error.StackTrace}");
-            return Problem(detail: "bir hata olustu, en kisa zamanda fixlenecek");
-        }
+      
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MyBlog.DataAccess.Concrete.EntityFrameworkCore.Mapping;
 using MyBlog.Entities.Concrete;
 using System;
@@ -9,10 +10,20 @@ namespace MyBlog.DataAccess.Concrete.EntityFrameworkCore.Context
 {
     public class MyBlogContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //private readonly IConfiguration _configuration;
+        //public MyBlogContext(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(_configuration.GetConnectionString("remote"));
+
+        //}
+
+        public MyBlogContext(DbContextOptions<MyBlogContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Data Source=45.151.250.150\\MSSQLSERVER2016;Initial Catalog=sametirk_blog;User Id=sametirk_cv;Password=!g9pQ8n5");
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

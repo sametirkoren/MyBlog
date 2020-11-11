@@ -11,5 +11,7 @@ namespace MyBlog.Entities.Concrete
         public string Name { get; set; }
 
         public List<CategoryBlog> CategoryBlogs {get;set;}
+
+      
     }
 }

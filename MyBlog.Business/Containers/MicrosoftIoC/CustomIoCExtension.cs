@@ -1,10 +1,13 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Business.Concrete;
 using MyBlog.Business.Interfaces;
 using MyBlog.Business.Tools.JWTool;
 using MyBlog.Business.Tools.LogTool;
 using MyBlog.Business.ValidationRules.FluentValidation;
+using MyBlog.DataAccess.Concrete.EntityFrameworkCore.Context;
 using MyBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MyBlog.DataAccess.Interfaces;
 using MyBlog.Dto.DTOs.AppUserDtos;
@@ -21,8 +24,14 @@ namespace MyBlog.Business.Containers.MicrosoftIoC
 {
     public static class CustomIoCExtension
     {
-        public static void AddDependencies(this IServiceCollection services)
+        public static void AddDependencies(this IServiceCollection services,IConfiguration configuration)
         {
+            services.AddDbContext<MyBlogContext>(opt=> {
+                opt.UseSqlServer(configuration.GetConnectionString("remote"), conf=> {
+
+                    conf.MigrationsAssembly("MyBlog.WebApi");
+                });
+            });
             services.AddScoped(typeof(IGenericDal<>), typeof(EfGenericRepository<>));
             services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 
